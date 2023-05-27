@@ -41,6 +41,7 @@ program
       environment,
       description: `Deploy request for ref:${ref} on ${environment}`,
     });
+    console.log(resp);
     process.exit();
   });
 program.parse(process.argv);
