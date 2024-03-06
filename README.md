@@ -32,7 +32,7 @@ npx github-deploy
 By default, this will deploy to the production environment. To deploy to a different environment, use the -e or --environment flag followed by the name of your target environment:
 ```sh
 github-deploy -e staging
-```Mozilla Public License Version 2.0
+```
 
 ## Setting Up Authentication
 For github-deploy to authenticate with GitHub, you must provide a GITHUB_TOKEN environment variable. Follow these steps to set it up:
