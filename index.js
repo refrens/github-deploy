@@ -1,5 +1,6 @@
 #!/usr/bin/node
 
+const { readFileSync, existsSync } = require('fs');
 const { exec } = require('child_process');
 const { program } = require('commander');
 
@@ -32,6 +33,11 @@ program
     base = base.replace(/\.git$/, '');
     parent = parent.split(':').pop();
     const { environment = 'production' , ref = branch, owner = parent, repo = base } = options;
+    let version;
+    if (existsSync('package.json')) {
+      const pkg = JSON.parse(readFileSync('package.json') || '{}');
+      ({ version } = pkg || {});
+    }
     const resp = await octokit.request('POST /repos/{owner}/{repo}/deployments', {
       owner,
       repo,
@@ -40,6 +46,7 @@ program
       required_contexts: [],
       environment,
       description: `Deploy request for ref:${ref} on ${environment}`,
+      payload: { version },
     });
     console.log(resp);
     process.exit();
