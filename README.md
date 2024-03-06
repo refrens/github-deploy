@@ -1,6 +1,8 @@
 # github-deploy
 
-`github-deploy` is a simple, yet powerful command-line utility for creating deployments on GitHub. 
+`github-deploy` is a simple, yet powerful command-line utility for creating deployments on GitHub.
+
+[![npm version](https://badge.fury.io/js/github-deploy.svg)](https://badge.fury.io/js/github-deploy)
 
 ## Features
 
