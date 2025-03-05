@@ -1,6 +1,6 @@
 {
   "name": "github-deploy",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "A tool for creating github deployments",
   "keywords": ["github", "deployment"],
   "main": "index.js",
