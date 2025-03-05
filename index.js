@@ -1,10 +1,10 @@
-#!/usr/bin/node
+#!/usr/bin/env node
 
-const { readFileSync, existsSync } = require('fs');
-const { exec } = require('child_process');
-const { program } = require('commander');
+const { readFileSync, existsSync } = require("fs");
+const { exec } = require("child_process");
+const { program } = require("commander");
 
-const { Octokit } = require('@octokit/core');
+const { Octokit } = require("@octokit/core");
 
 const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
 
@@ -25,29 +25,39 @@ function sh(cmd) {
 }
 
 program
-  .option('-e, --environment <environment>', 'Deployment environment')
+  .option("-e, --environment <environment>", "Deployment environment")
   .action(async (options) => {
-    const branch = await sh('git rev-parse --abbrev-ref HEAD');
-    const origin = await sh('git remote get-url origin');
-    let [base, parent] = origin.split('/').reverse();
-    base = base.replace(/\.git$/, '');
-    parent = parent.split(':').pop();
-    const { environment = 'production' , ref = branch, owner = parent, repo = base } = options;
+    const branch = await sh("git rev-parse --abbrev-ref HEAD");
+    const origin = await sh("git remote get-url origin");
+    let [base, parent] = origin.split("/").reverse();
+    base = base.replace(/\.git$/, "");
+    parent = parent.split(":").pop();
+    const {
+      environment = "production",
+      ref = branch,
+      owner = parent,
+      repo = base,
+    } = options;
     let version;
-    if (existsSync('package.json')) {
-      const pkg = JSON.parse(readFileSync('package.json') || '{}');
+    if (existsSync("package.json")) {
+      const pkg = JSON.parse(readFileSync("package.json") || "{}");
       ({ version } = pkg || {});
     }
-    const resp = await octokit.request('POST /repos/{owner}/{repo}/deployments', {
-      owner,
-      repo,
-      ref,
-      auto_merge: false,
-      required_contexts: [],
-      environment,
-      description: `Deploy request for ref:${ref} on ${environment}`,
-      payload: { version },
-    });
+
+    console.log({ owner, repo, ref, environment, version });
+    const resp = await octokit.request(
+      "POST /repos/{owner}/{repo}/deployments",
+      {
+        owner,
+        repo,
+        ref,
+        auto_merge: false,
+        required_contexts: [],
+        environment,
+        description: `Deploy request for ref:${ref} on ${environment}`,
+        payload: { version },
+      }
+    );
     console.log(resp);
     process.exit();
   });
