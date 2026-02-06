@@ -1,8 +1,11 @@
 {
   "name": "github-deploy",
-  "version": "2.1.6",
+  "version": "3.0.0",
   "description": "A tool for creating github deployments",
-  "keywords": ["github", "deployment"],
+  "keywords": [
+    "github",
+    "deployment"
+  ],
   "main": "index.js",
   "bin": "./index.js",
   "scripts": {
