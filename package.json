@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/refrens/github-deploy#readme",
   "dependencies": {
-    "@octokit/core": "^4.2.1",
+    "@octokit/core": "^7.0.8",
     "commander": "^10.0.1"
   }
 }
